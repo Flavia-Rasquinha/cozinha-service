@@ -3,7 +3,8 @@ package com.restaurante.cozinhaservice.dto;
 import lombok.Builder;
 
 import java.math.BigDecimal;
+
 @Builder
-public record ItemsDto(String id, String idIngredient, int amount, BigDecimal value) {
+public record ItemsOrdenDto(String id, String idIngredient, String idDish, int amount, BigDecimal value) {
 
 }

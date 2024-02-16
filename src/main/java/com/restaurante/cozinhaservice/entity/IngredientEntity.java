@@ -2,7 +2,6 @@ package com.restaurante.cozinhaservice.entity;
 
 import lombok.*;
 import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 
@@ -11,14 +10,12 @@ import org.springframework.data.mongodb.core.mapping.Field;
 @Data
 @Builder
 @EqualsAndHashCode(of = "id")
-@Document(collection = "Estoque")
-public class StockEntity {
+@Document(collection = "Ingrediente")
+public class IngredientEntity {
 
     @Id
     private String id;
-    @Field(name = "IdIngrediente")
-    private String idIngredient;
-    @Field(name = "Quantidade")
-    private int amount;
+    @Field(name = "NomeIngrediente")
+    private String ingredientName;
 
 }

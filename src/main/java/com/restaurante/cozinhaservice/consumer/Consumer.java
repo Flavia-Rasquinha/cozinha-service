@@ -6,6 +6,8 @@ import com.restaurante.cozinhaservice.dto.OrderDto;
 import com.restaurante.cozinhaservice.entity.StockEntity;
 import com.restaurante.cozinhaservice.repository.DishRepository;
 import com.restaurante.cozinhaservice.repository.StockRepository;
+import com.restaurante.cozinhaservice.service.DishService;
+import com.restaurante.cozinhaservice.service.StockService;
 import lombok.AllArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -22,8 +24,8 @@ public class Consumer {
     private final Logger logger = LoggerFactory.getLogger(Consumer.class);
     private ObjectMapper objectMapper;
     private CallOrderClient callOrderClient;
-    private DishRepository dishRepository;
-    private StockRepository stockRepository;
+    private DishService dishService;
+    private StockService stockService;
 
     @KafkaListener(topics = "pedido")
     public void consume(String message) throws IOException {
@@ -31,60 +33,15 @@ public class Consumer {
 
         var orderDto = objectMapper.readValue(message, OrderDto.class);
 
-        AtomicReference<OrderDto> updateOrder = verifyOrder(orderDto);
+        AtomicReference<OrderDto> updateOrder = dishService.verifyOrder(orderDto);
 
-        removeItemStock(orderDto);
-
-        if (orderDto.status().equals("CANCELADO")) {
-            callOrderClient.callOrder(updateOrder.get());
+        if (updateOrder.get().status().equals("CANCELADO")) {
+            callOrderClient.callOrder(updateOrder.get().id(), updateOrder.get().status());
         } else {
+            stockService.removeItemStock(orderDto);
             updateOrder.set(orderDto.withStatus("PRONTO"));
+            callOrderClient.callOrder(updateOrder.get().id(), updateOrder.get().status());
         }
-    }
-
-    private AtomicReference<OrderDto> verifyOrder(OrderDto orderDto) {
-        AtomicReference<OrderDto> updateOrder = new AtomicReference<>(orderDto.withStatus("EM_ANDAMENTO"));
-        orderDto.items().forEach(item -> {
-
-            var dish = dishRepository.findByDishName(item.name());
-
-            dish.ifPresent(dishEntity -> dishEntity.getItems().forEach(itemDish -> {
-                var itemStock = stockRepository.findByProductName(itemDish.name());
-                verifyCanceled(itemStock, updateOrder, orderDto);
-            }));
-
-            if (dish.isEmpty()) {
-                var itemStock = stockRepository.findByProductName(item.name());
-                verifyCanceled(itemStock, updateOrder, orderDto);
-            }
-        });
-        return updateOrder;
-    }
-
-    private void verifyCanceled(Optional<StockEntity> itemStock, AtomicReference<OrderDto> updateOrder, OrderDto orderDto) {
-        if (itemStock.isEmpty()) {
-            updateOrder.set(orderDto.withStatus("CANCELADO"));
-        }
-    }
-
-    private void removeItemStock(OrderDto orderDto) {
-        orderDto.items().forEach(item -> {
-            var dish = dishRepository.findByDishName(item.name());
-
-            dish.ifPresent(dishEntity -> dishEntity.getItems().forEach(itemDish -> {
-                var findStock = stockRepository.findByProductName(itemDish.name());
-                findStock.ifPresent(stockEntity -> {
-                    stockEntity.setAmount(stockEntity.getAmount() - itemDish.amount());
-                    stockRepository.save(findStock.get());
-                });
-            }));
-
-            var findStock = stockRepository.findByProductName(item.name());
-            findStock.ifPresent(stockEntity -> {
-                stockEntity.setAmount(stockEntity.getAmount() - item.amount());
-                stockRepository.save(findStock.get());
-            });
-        });
     }
 
 }
