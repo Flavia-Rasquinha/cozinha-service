@@ -11,7 +11,8 @@ import org.springframework.web.client.RestTemplate;
 public class CallOrderClient {
 
     private RestTemplate restTemplate;
-    private static String ORDER_BASE_URL = "http://localhost:8080/order/";
+    private static String ORDER_BASE_URL = "https://pedido-service.onrender.com:443/order/";
+
     public void callOrder(String id ,String status) {
         HttpComponentsClientHttpRequestFactory requestFactory = new HttpComponentsClientHttpRequestFactory();
         requestFactory.setConnectTimeout(10000);

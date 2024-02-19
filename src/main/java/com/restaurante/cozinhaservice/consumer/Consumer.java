@@ -27,7 +27,7 @@ public class Consumer {
     private DishService dishService;
     private StockService stockService;
 
-    @KafkaListener(topics = "pedido")
+    @KafkaListener(topics = "pedidos")
     public void consume(String message) throws IOException {
         logger.info(String.format("#### -> Consumed message -> %s", message));
 
