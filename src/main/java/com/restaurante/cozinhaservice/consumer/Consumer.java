@@ -29,9 +29,9 @@ public class Consumer {
 
     @KafkaListener(topics = "pedidos")
     public void consume(String message) throws IOException {
-        logger.info(String.format("#### -> Consumed message -> %s", message));
-
         var orderDto = objectMapper.readValue(message, OrderDto.class);
+
+        logger.info("Recebido pedido IdPedido: {}", orderDto.id());
 
         AtomicReference<OrderDto> updateOrder = dishService.verifyOrder(orderDto);
 
@@ -42,6 +42,8 @@ public class Consumer {
             updateOrder.set(orderDto.withStatus("PRONTO"));
             callOrderClient.callOrder(updateOrder.get().id(), updateOrder.get().status());
         }
+
+        logger.info("Pedido IdPedido: {}, processado para status: {}", orderDto.id(), updateOrder.get().status());
     }
 
 }

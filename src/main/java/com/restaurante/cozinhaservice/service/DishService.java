@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.ObjectUtils;
 
 import java.util.Objects;
+import java.util.Optional;
 import java.util.concurrent.atomic.AtomicReference;
 
 @Service
@@ -26,19 +27,23 @@ public class DishService {
 
                 dish.ifPresent(dishEntity -> dishEntity.getItems().forEach(itemDish -> {
                     var itemStock = stockRepository.findByIdIngredient(itemDish.idIngredient());
-                    verifyCanceled(itemStock.get(), updateOrder, orderDto, itemDish.amount());
+                    verifyCanceled(itemStock, updateOrder, orderDto, itemDish.amount());
                 }));
             } else {
                 var itemStock = stockRepository.findByIdIngredient(item.idIngredient());
-                verifyCanceled(itemStock.get(), updateOrder, orderDto, item.amount());
+                verifyCanceled(itemStock, updateOrder, orderDto, item.amount());
             }
         });
         return updateOrder;
     }
 
-    public void verifyCanceled(StockEntity itemStock, AtomicReference<OrderDto> updateOrder,
+    public void verifyCanceled(Optional<StockEntity> itemStock, AtomicReference<OrderDto> updateOrder,
                                OrderDto orderDto, int itemDish) {
-        if (itemStock.getAmount() < itemDish) {
+        if (itemStock.isPresent()) {
+            if (itemStock.get().getAmount() < itemDish) {
+                updateOrder.set(orderDto.withStatus("CANCELADO"));
+            }
+        } else {
             updateOrder.set(orderDto.withStatus("CANCELADO"));
         }
     }
