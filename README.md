@@ -11,20 +11,20 @@ O Cozinha Service é responsável por processar os pedidos recebidos do Pedido S
 - MongoDB
 - Apache Kafka
 
-**Instruções de Instalação**
+**Servidores Implantados**
 
-1. Certifique-se de ter o Docker instalado.
-2. Clone o repositório.
-3. Execute `docker-compose up -d` para iniciar o MongoDB e o Kafka.
-4. Execute a aplicação Spring Boot.
+- Render pedido-service
+- Render cozinha-service
+- Upstash kafka
+- Atlas mongo
 
 **Configurações**
 
 * Porta da Aplicação: 8081
-* URL do Kafka: localhost:29092
-* URL do MongoDB: mongodb://localhost:27017/local
+* URL do Kafka: choice-corgi-8216-us1-kafka.upstash.io:9092
+* URL do MongoDB: mongodb+srv://flaviarask:<password>@cluster0.zd0tc3l.mongodb.net/restaurante
 
 **Endpoints**
 
-* Endpoint do Consumidor Kafka (para receber pedidos):
-  * URL: kafka:29092
+* Topico do Consumidor Kafka (para receber pedidos):
+  * Servidor: kafka:9092 - pedidos
