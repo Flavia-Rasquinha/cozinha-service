@@ -5,6 +5,7 @@ import com.restaurante.cozinhaservice.dto.ItemsOrdenDto;
 import com.restaurante.cozinhaservice.dto.OrderDto;
 import com.restaurante.cozinhaservice.entity.DishEntity;
 import com.restaurante.cozinhaservice.entity.StockEntity;
+import com.restaurante.cozinhaservice.enums.StatusEnum;
 import com.restaurante.cozinhaservice.repository.DishRepository;
 import com.restaurante.cozinhaservice.repository.StockRepository;
 import org.junit.jupiter.api.Assertions;
@@ -45,7 +46,7 @@ class DishServiceTest {
         OrderDto orderDto = createOrder();
         AtomicReference<OrderDto> orderDtoAtomicReference = dishService.verifyOrder(orderDto);
 
-        Assertions.assertEquals("EM_ANDAMENTO", orderDtoAtomicReference.get().status());
+        Assertions.assertEquals(StatusEnum.REQUESTED, orderDtoAtomicReference.get().status());
     }
 
     @Test
@@ -62,7 +63,7 @@ class DishServiceTest {
         OrderDto orderDto = createOrderDish();
         AtomicReference<OrderDto> orderDtoAtomicReference = dishService.verifyOrder(orderDto);
 
-        Assertions.assertEquals("CANCELADO", orderDtoAtomicReference.get().status());
+        Assertions.assertEquals(StatusEnum.CANCELED, orderDtoAtomicReference.get().status());
     }
 
 
@@ -75,6 +76,7 @@ class DishServiceTest {
                         .value(BigDecimal.TEN)
                         .build()))
                 .totalValue(BigDecimal.ONE)
+                .status(StatusEnum.REQUESTED)
                 .build();
         return orderDto;
     }

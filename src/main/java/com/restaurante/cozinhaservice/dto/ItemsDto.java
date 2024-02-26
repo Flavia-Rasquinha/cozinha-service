@@ -4,6 +4,6 @@ import lombok.Builder;
 
 import java.math.BigDecimal;
 @Builder
-public record ItemsDto(String id, String idIngredient, int amount, BigDecimal value) {
+public record ItemsDto(String id, String idIngredient, Integer amount, BigDecimal value) {
 
 }

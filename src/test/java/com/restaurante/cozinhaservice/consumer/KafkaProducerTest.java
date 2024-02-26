@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.restaurante.cozinhaservice.client.CallOrderClient;
 import com.restaurante.cozinhaservice.dto.ItemsOrdenDto;
 import com.restaurante.cozinhaservice.dto.OrderDto;
+import com.restaurante.cozinhaservice.enums.StatusEnum;
 import com.restaurante.cozinhaservice.service.DishService;
 import com.restaurante.cozinhaservice.service.StockService;
 import org.junit.jupiter.api.BeforeEach;
@@ -40,11 +41,11 @@ public class KafkaProducerTest {
 
         Mockito.when(objectMapper.readValue(anyString(), eq(OrderDto.class))).thenReturn(OrderDto.builder().build());
         Mockito.when(dishService.verifyOrder(any())).thenReturn(createOrderCanceled());
-        Mockito.doNothing().when(callOrderClient).callOrder(anyString(), anyString());
+        Mockito.doNothing().when(callOrderClient).callOrder(anyString(), any());
 
         consumer.consume("mensagem");
 
-        Mockito.verify(callOrderClient, Mockito.times(1)).callOrder(ArgumentMatchers.anyString(), ArgumentMatchers.anyString());
+        Mockito.verify(callOrderClient, Mockito.times(1)).callOrder(ArgumentMatchers.anyString(), ArgumentMatchers.any());
     }
 
     @Test
@@ -52,12 +53,12 @@ public class KafkaProducerTest {
 
         Mockito.when(objectMapper.readValue(anyString(), eq(OrderDto.class))).thenReturn(OrderDto.builder().id("1").build());
         Mockito.when(dishService.verifyOrder(any())).thenReturn(createOrder());
-        Mockito.doNothing().when(callOrderClient).callOrder(anyString(), anyString());
+        Mockito.doNothing().when(callOrderClient).callOrder(anyString(), any());
 
         consumer.consume("mensagem");
 
         Mockito.verify(stockService, Mockito.times(1)).removeItemStock(any());
-        Mockito.verify(callOrderClient, Mockito.times(1)).callOrder(ArgumentMatchers.anyString(), ArgumentMatchers.anyString());
+        Mockito.verify(callOrderClient, Mockito.times(1)).callOrder(ArgumentMatchers.anyString(), ArgumentMatchers.any());
     }
 
     private static AtomicReference<OrderDto> createOrderCanceled() {
@@ -70,7 +71,7 @@ public class KafkaProducerTest {
                         .value(BigDecimal.TEN)
                         .build()))
                 .totalValue(BigDecimal.ONE)
-                .status("CANCELADO")
+                .status(StatusEnum.CANCELED)
                 .build());
         return orderDto;
     }
@@ -85,7 +86,7 @@ public class KafkaProducerTest {
                         .value(BigDecimal.TEN)
                         .build()))
                 .totalValue(BigDecimal.ONE)
-                .status("PRONTO")
+                .status(StatusEnum.READY)
                 .build());
         return orderDto;
     }
