@@ -2,7 +2,8 @@
 
 **Descrição**
 
-O Cozinha Service é responsável por processar os pedidos recebidos do Pedido Service. Ele realiza validações, verificações no estoque e atualiza o status dos pedidos.
+Conforme o [enunciado](https://github.com/Flavia-Rasquinha/cozinha-service#STATEMENT.md) foi desenvolvido duas apps. O cozinha-service 
+é responsável por processar os pedidos recebidos do Pedido Service. Ele realiza validações, verificações no estoque e atualiza o status dos pedidos.
 
 **Tecnologias Utilizadas**
 
@@ -11,12 +12,17 @@ O Cozinha Service é responsável por processar os pedidos recebidos do Pedido S
 - MongoDB
 - Apache Kafka
 
+**Deploy localhost**
+
+Rodando a aplicação localhost, após rodar o comando **docker-compose up -d**, irá subir as imagens do kafka e mongo, após
+isso rodar a aplicação com o comando spring.profiles.active=local no environment para subir a aplicação com o profile local ativo.
+
 **Servidores Implantados**
 
-- Render pedido-service
-- Render cozinha-service
-- Upstash kafka
-- Atlas mongo
+- [Render](https://render.com/) [pedido-service](https://pedido-service.onrender.com)
+- [Render](https://render.com/) [cozinha-service](https://cozinha-service.onrender.com)
+- [Upstash](https://upstash.com/) [kafka](https://console.upstash.com/kafka/37e3fc6c-191d-4ca3-ad46-fdba4fd44dd8/03268c8b-a670-4010-94d7-67b4c2a936e1)
+- [Atlas mongo](https://cloud.mongodb.com/v2/65d3e1126f8bb92563f4e1c5#/clusters)
 
 **Configurações**
 
