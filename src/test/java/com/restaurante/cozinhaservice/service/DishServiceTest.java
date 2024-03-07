@@ -38,7 +38,7 @@ class DishServiceTest {
     }
 
     @Test
-    public void verifyOrderSuccess() {
+    public void verifyOrderWithValidOrderShouldReturnSuccess() {
 
         Mockito.when(dishRepository.findById(any())).thenReturn(Optional.ofNullable(DishEntity.builder().build()));
         Mockito.when(stockRepository.findByIdIngredient(any())).thenReturn(Optional.ofNullable(StockEntity.builder().amount(1).build()));
@@ -50,7 +50,7 @@ class DishServiceTest {
     }
 
     @Test
-    public void verifyOrderCanceled() {
+    public void verifyOrderWithOrderCanceledShouldReturnSuccess() {
 
         Mockito.when(dishRepository.findById(any())).thenReturn(Optional.ofNullable(DishEntity.builder()
                 .items(Collections.singletonList(ItemsDto.builder()
@@ -77,19 +77,6 @@ class DishServiceTest {
                         .build()))
                 .totalValue(BigDecimal.ONE)
                 .status(StatusEnum.REQUESTED)
-                .build();
-        return orderDto;
-    }
-
-    private static OrderDto createOrderError() {
-        OrderDto orderDto = OrderDto.builder()
-                .items(Collections.singletonList(ItemsOrdenDto.builder()
-                        .id("1")
-                        .idIngredient("feijao1")
-                        .amount(1)
-                        .value(BigDecimal.TEN)
-                        .build()))
-                .totalValue(BigDecimal.ONE)
                 .build();
         return orderDto;
     }

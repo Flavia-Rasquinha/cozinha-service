@@ -22,14 +22,13 @@ public class StockService {
         logger.info("Removing items from inventory");
 
         orderDto.items().forEach(item -> {
-            if (Objects.nonNull(item.idDish())) {
-                var dish = dishRepository.findById(item.idDish());
-
-                dish.ifPresent(dishEntity -> dishEntity.getItems().forEach(itemDish -> {
+            var dish = dishRepository.findById(item.idProduct());
+            if (dish.isPresent()) {
+                dish.get().getItems().forEach(itemDish -> {
                     removeByItem(itemDish.idIngredient(), itemDish.amount());
-                }));
+                });
             } else {
-                removeByItem(item.idIngredient(), item.amount());
+                removeByItem(item.idProduct(), item.amount());
             }
         });
     }

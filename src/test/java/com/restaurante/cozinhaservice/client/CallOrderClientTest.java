@@ -29,7 +29,7 @@ class CallOrderClientTest {
     }
 
     @Test
-    public void createDish() {
+    public void createCallOrderWithValidIdShouldReturnSucess() {
 
         callOrderClient.callOrder("1", StatusEnum.READY);
 

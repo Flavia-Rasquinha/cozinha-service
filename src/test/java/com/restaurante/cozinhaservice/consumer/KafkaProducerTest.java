@@ -37,7 +37,7 @@ public class KafkaProducerTest {
     }
 
     @Test
-    public void consumerCanceled() throws IOException {
+    public void consumerWithOrderCanceledShouldReturnSuccess() throws IOException {
 
         Mockito.when(objectMapper.readValue(anyString(), eq(OrderDto.class))).thenReturn(OrderDto.builder().build());
         Mockito.when(dishService.verifyOrder(any())).thenReturn(createOrderCanceled());
@@ -49,7 +49,7 @@ public class KafkaProducerTest {
     }
 
     @Test
-    public void consumerSuccess() throws IOException {
+    public void consumerWithOrderShouldReturnSuccess() throws IOException {
 
         Mockito.when(objectMapper.readValue(anyString(), eq(OrderDto.class))).thenReturn(OrderDto.builder().id("1").build());
         Mockito.when(dishService.verifyOrder(any())).thenReturn(createOrder());

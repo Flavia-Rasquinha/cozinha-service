@@ -42,7 +42,7 @@ class MongoInitConfigTest {
     }
 
     @Test
-    public void createDish() {
+    public void createDishWithValidEntityShouldReturnSuccess() {
 
         Mockito.when(dishRepository.findAll()).thenReturn(Collections.singletonList(DishEntity.builder().build()));
 
@@ -52,7 +52,7 @@ class MongoInitConfigTest {
     }
 
     @Test
-    public void createIngredient() {
+    public void createIngredientWithValidEntityShouldReturnSuccess() {
 
         Mockito.when(ingredientRepository.findAll()).thenReturn(Collections.singletonList(IngredientEntity.builder().build()));
 
@@ -62,24 +62,12 @@ class MongoInitConfigTest {
     }
 
     @Test
-    public void createStock() {
+    public void createStockWithValidEntityShouldReturnSuccess() {
 
         Mockito.when(stockRepository.findAll()).thenReturn(Collections.singletonList(StockEntity.builder().build()));
 
         mongoInitConfig.initMongoStock();
 
         Mockito.verify(stockRepository, Mockito.times(1)).saveAll(any());
-    }
-    private static OrderDto createOrder() {
-        OrderDto orderDto = OrderDto.builder()
-                .items(Collections.singletonList(ItemsOrdenDto.builder()
-                        .id("1")
-                        .idIngredient("feijao1")
-                        .amount(1)
-                        .value(BigDecimal.TEN)
-                        .build()))
-                .totalValue(BigDecimal.ONE)
-                .build();
-        return orderDto;
     }
 }

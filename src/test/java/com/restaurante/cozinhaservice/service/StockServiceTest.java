@@ -34,7 +34,7 @@ class StockServiceTest {
     }
 
     @Test
-    public void removeItemStockSuccess() {
+    public void removeItemStockWithValidOrderShouldReturnSuccess() {
 
         Mockito.when(dishRepository.findById(any())).thenReturn(Optional.ofNullable(DishEntity.builder().build()));
         Mockito.when(stockRepository.findByIdIngredient(any())).thenReturn(Optional.ofNullable(StockEntity.builder().amount(1).build()));
@@ -46,7 +46,7 @@ class StockServiceTest {
     }
 
     @Test
-    public void removeItemStockDishSuccess() {
+    public void removeItemStockDishWithValidDishShouldReturnSuccess() {
 
         Mockito.when(dishRepository.findById(any())).thenReturn(Optional.ofNullable(DishEntity.builder()
                 .items(Collections.singletonList(ItemsDto.builder()
@@ -64,7 +64,7 @@ class StockServiceTest {
     }
 
     @Test
-    public void removeItemStockError() {
+    public void removeItemStockWithInvalidDishShouldReturnError() {
 
         Mockito.when(dishRepository.findById(any())).thenReturn(Optional.ofNullable(DishEntity.builder()
                 .items(Collections.singletonList(ItemsDto.builder()

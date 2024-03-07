@@ -24,15 +24,13 @@ public class DishService {
 
         AtomicReference<OrderDto> updateOrder = new AtomicReference<>(orderDto);
         orderDto.items().forEach(item -> {
-
-            if (Objects.nonNull(item.idDish())) {
-                var dish = dishRepository.findById(item.idDish());
-
-                dish.ifPresent(dishEntity -> dishEntity.getItems().forEach(itemDish -> {
+            var dish = dishRepository.findById(item.idProduct());
+            if (dish.isPresent()) {
+                dish.get().getItems().forEach(itemDish -> {
                     verifyCanceled(itemDish.idIngredient(), updateOrder, orderDto, itemDish.amount());
-                }));
+                });
             } else {
-                verifyCanceled(item.idIngredient(), updateOrder, orderDto, item.amount());
+                verifyCanceled(item.idProduct(), updateOrder, orderDto, item.amount());
             }
         });
         return updateOrder;
