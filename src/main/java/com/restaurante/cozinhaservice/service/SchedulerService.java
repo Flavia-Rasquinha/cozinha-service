@@ -17,7 +17,7 @@ public class SchedulerService {
     private final HealthEndpoint healthEndpoint;
     private static final Logger logger = LoggerFactory.getLogger(SchedulerService.class);
 
-    @Scheduled(fixedRate = 900000)
+    @Scheduled(fixedRateString = "${scheduler.time}")
     public void schedulerAliveApp() {
 
         logger.info("Checking if the app is still alive at: {}", LocalDateTime.now());
