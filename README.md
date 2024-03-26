@@ -30,7 +30,11 @@ isso rodar a aplicação com o comando spring.profiles.active=local no environme
 * URL do Kafka: choice-corgi-8216-us1-kafka.upstash.io:9092
 * URL do MongoDB: mongodb+srv://flaviarask:<password>@cluster0.zd0tc3l.mongodb.net/restaurante
 
-**Endpoints**
+# Endpoints
+Para documentação completa dos endpoints acessar o **SwaggerUI**:<br>
+**Local:** http://localhost:8081/swagger-ui/<br>
+**Online:** https://cozinha-service.onrender.com/swagger-ui/<br>
 
-* Topico do Consumidor Kafka (para receber pedidos):
-  * Servidor: kafka:9092 - pedidos
+<br>
+
+- `GET` /actuator/health · Status da app
