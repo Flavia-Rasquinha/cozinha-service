@@ -19,7 +19,7 @@
 
 # Sobre
 
-Conforme a proposta do [enunciado](/STATEMENT.md) foram desenvolvidos dois microsserviços, o **pedido-service** responsável pela criação e gerenciamento dos pedidos, com comunicação por mensageria com a **[cozinha-service](https://github.com/Flavia-Rasquinha/cozinha-service)**, onde é feito o gerenciamento dos itens da cozinha. Utiliza o Apache Kafka para enviar pedidos para a cozinha-service e aguarda a confirmação do status do pedido.
+Conforme a proposta do [enunciado](https://github.com/Flavia-Rasquinha/pedido-service/blob/main/STATEMENT.md) foram desenvolvidos dois microsserviços, o **pedido-service** responsável pela criação e gerenciamento dos pedidos, com comunicação por mensageria com a **[cozinha-service](https://github.com/Flavia-Rasquinha/cozinha-service)**, onde é feito o gerenciamento dos itens da cozinha. Utiliza o Apache Kafka para enviar pedidos para a cozinha-service e aguarda a confirmação do status do pedido.
 
 ### Tecnologias Utilizadas
 - Java 17 + Spring Boot 2.7.2
@@ -37,7 +37,7 @@ Conforme a proposta do [enunciado](/STATEMENT.md) foram desenvolvidos dois micro
 <br>
 
 # Instalação
-As aplicações podem ser executadas em ambiente local fazendo uso do Docker, para subir as imagens basta executar o [docker-compose](referenciar) do projeto [pedido-service](https://github.com/Flavia-Rasquinha/pedido-service) e subir as aplicações java.
+As aplicações podem ser executadas em ambiente local fazendo uso do Docker, para subir as imagens basta executar o [docker-compose](https://github.com/Flavia-Rasquinha/pedido-service/blob/main/docker-compose.yml) do projeto [pedido-service](https://github.com/Flavia-Rasquinha/pedido-service) e subir as aplicações java.
 
 ```bash
 docker-compose up -d
