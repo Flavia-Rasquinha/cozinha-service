@@ -1,16 +1,11 @@
 package com.restaurante.cozinhaservice.config;
 
-import com.restaurante.cozinhaservice.config.MongoInitConfig;
-import com.restaurante.cozinhaservice.dto.ItemsDto;
-import com.restaurante.cozinhaservice.dto.ItemsOrdenDto;
-import com.restaurante.cozinhaservice.dto.OrderDto;
 import com.restaurante.cozinhaservice.entity.DishEntity;
 import com.restaurante.cozinhaservice.entity.IngredientEntity;
 import com.restaurante.cozinhaservice.entity.StockEntity;
 import com.restaurante.cozinhaservice.repository.DishRepository;
 import com.restaurante.cozinhaservice.repository.IngredientRepository;
 import com.restaurante.cozinhaservice.repository.StockRepository;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -18,10 +13,7 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 
-import java.math.BigDecimal;
 import java.util.Collections;
-import java.util.Optional;
-import java.util.concurrent.atomic.AtomicReference;
 
 import static org.mockito.ArgumentMatchers.any;
 

@@ -3,21 +3,16 @@ package com.restaurante.cozinhaservice.consumer;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.restaurante.cozinhaservice.client.CallOrderClient;
 import com.restaurante.cozinhaservice.dto.OrderDto;
-import com.restaurante.cozinhaservice.entity.StockEntity;
 import com.restaurante.cozinhaservice.enums.StatusEnum;
-import com.restaurante.cozinhaservice.repository.DishRepository;
-import com.restaurante.cozinhaservice.repository.StockRepository;
 import com.restaurante.cozinhaservice.service.DishService;
 import com.restaurante.cozinhaservice.service.StockService;
 import lombok.AllArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
-import java.util.Optional;
 import java.util.concurrent.atomic.AtomicReference;
 
 @Service

@@ -7,7 +7,6 @@ import com.restaurante.cozinhaservice.entity.DishEntity;
 import com.restaurante.cozinhaservice.entity.StockEntity;
 import com.restaurante.cozinhaservice.repository.DishRepository;
 import com.restaurante.cozinhaservice.repository.StockRepository;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.*;
@@ -15,7 +14,6 @@ import org.mockito.*;
 import java.math.BigDecimal;
 import java.util.Collections;
 import java.util.Optional;
-import java.util.concurrent.atomic.AtomicReference;
 
 import static org.mockito.ArgumentMatchers.any;
 

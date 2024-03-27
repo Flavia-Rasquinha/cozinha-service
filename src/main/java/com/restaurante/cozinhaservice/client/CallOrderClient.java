@@ -1,9 +1,7 @@
 package com.restaurante.cozinhaservice.client;
 
-import com.restaurante.cozinhaservice.consumer.Consumer;
 import com.restaurante.cozinhaservice.dto.OrderDto;
 import com.restaurante.cozinhaservice.enums.StatusEnum;
-import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -12,7 +10,6 @@ import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.MediaType;
-import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 

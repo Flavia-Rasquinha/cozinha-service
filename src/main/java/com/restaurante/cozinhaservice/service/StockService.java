@@ -1,6 +1,5 @@
 package com.restaurante.cozinhaservice.service;
 
-import com.restaurante.cozinhaservice.dto.ItemsOrdenDto;
 import com.restaurante.cozinhaservice.dto.OrderDto;
 import com.restaurante.cozinhaservice.repository.DishRepository;
 import com.restaurante.cozinhaservice.repository.StockRepository;
@@ -8,8 +7,6 @@ import lombok.AllArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
-
-import java.util.Objects;
 
 @Service
 @AllArgsConstructor
